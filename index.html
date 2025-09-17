@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>French Word Match Game</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- SheetJS library -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+</head>
+<body>
+  <h1>French Word Match Game</h1>
+
+  <!-- File upload section -->
+  <div id="fileInputBox">
+    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,.ods">
+  </div>
+
+  <!-- Scoreboard with Restart button -->
+  <div id="scoreboard">
+    <span>Total Matches: <span id="totalMatches">0</span></span>
+    <span>Completed: <span id="completedMatches">0</span></span>
+    <span>Remaining: <span id="remainingMatches">0</span></span>
+    <button id="restartButton">Restart</button>
+  </div>
+
+  <!-- Game container -->
+  <div class="container">
+    <div class="column" id="frenchColumn"></div>
+    <div class="column" id="englishColumn"></div>
+  </div>
+
+  <!-- Abbreviations -->
+  <div id="abbreviations">
+    <h2>List of Abbreviations</h2>
+    <div class="abbrev-columns">
+      <ul>
+        <li><strong>MPN</strong> = Masculine Plural Noun</li>
+        <li><strong>PN</strong> = Proper Noun</li>
+        <li><strong>MN</strong> = Masculine Noun</li>
+        <li><strong>N</strong> = Noun</li>
+        <li><strong>FN</strong> = Feminine Noun</li>
+        <li><strong>FPN</strong> = Feminine Plural Noun</li>
+        <li><strong>NN</strong> = Neuter Noun</li>
+        <li><strong>P</strong> = Pronoun</li>
+      </ul>
+      <ul>
+        <li><strong>SP</strong> = Subject Pronoun</li>
+        <li><strong>DA</strong> = Demonstrative Adjective</li>
+        <li><strong>A</strong> = Adjective</li>
+        <li><strong>FA</strong> = Female Adjective</li>
+        <li><strong>V</strong> = Verb</li>
+        <li><strong>Av</strong> = Adverb</li>
+        <li><strong>Ph</strong> = Phrase</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
