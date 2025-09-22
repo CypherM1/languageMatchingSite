@@ -10,29 +10,45 @@ let unmatchedWords = [];
 let selectedFrench = null;
 let selectedEnglish = null;
 
+// Allowed file types
+const allowedExtensions = [".xlsx", ".xls", ".ods", ".csv", ".xlsb", ".fods"];
+
 // File input listener
 document.getElementById('fileInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (!file) return;
 
+    // Validate file type
+    const ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    if (!allowedExtensions.includes(ext)) {
+        alert("Invalid file type. Please upload one of the following:\n" + allowedExtensions.join(", "));
+        e.target.value = ""; // reset file input
+        return;
+    }
+
     const reader = new FileReader();
     reader.onload = function(e) {
-        const data = new Uint8Array(e.target.result);
-        const workbook = XLSX.read(data, { type: 'array' });
-        const sheetName = workbook.SheetNames[0];
-        const worksheet = workbook.Sheets[sheetName];
+        try {
+            const data = new Uint8Array(e.target.result);
+            const workbook = XLSX.read(data, { type: 'array' });
+            const sheetName = workbook.SheetNames[0];
+            const worksheet = workbook.Sheets[sheetName];
 
-        const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
-        words = jsonData.filter(row => row["French"] && row["English"]);
-        unmatchedWords = [...words];
+            const jsonData = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+            words = jsonData.filter(row => row["French"] && row["English"]);
+            unmatchedWords = [...words];
 
-        if (words.length === 0) {
-            alert("No valid words found. Headers must be: French, English, Word Class, Pronunciation, Full Info");
-            return;
+            if (words.length === 0) {
+                alert("No valid words found. The first row must have these headers:\nFrench | English | Word Class | Pronunciation | Full Info");
+                return;
+            }
+
+            updateScoreboard();
+            generateCards();
+        } catch (err) {
+            alert("Error reading the file. Please make sure it's a valid spreadsheet.");
+            console.error(err);
         }
-
-        updateScoreboard();
-        generateCards();
     };
     reader.readAsArrayBuffer(file);
 });
@@ -84,6 +100,11 @@ function generateCards() {
 }
 
 function selectCard(type, card) {
+    // Bounce effect
+    card.classList.remove('bounce');
+    void card.offsetWidth; // force reflow
+    card.classList.add('bounce');
+
     if (type === 'french') {
         if (selectedFrench) selectedFrench.classList.remove('selected');
         selectedFrench = card;
