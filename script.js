@@ -19,7 +19,13 @@ document.getElementById('fileInput').addEventListener('change', function(e) {
     if (!file) return;
 
     // Validate file type
-    const ext = file.name.slice(file.name.lastIndexOf(".")).toLowerCase();
+    const parts = file.name.split(".");
+    if (parts.length < 2) {
+        alert("Invalid file. Please upload a spreadsheet file:\n" + allowedExtensions.join(", "));
+        e.target.value = ""; // reset file input
+        return;
+    }
+    const ext = "." + parts.pop().toLowerCase();
     if (!allowedExtensions.includes(ext)) {
         alert("Invalid file type. Please upload one of the following:\n" + allowedExtensions.join(", "));
         e.target.value = ""; // reset file input
