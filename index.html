@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>French Word Match</title>
+  <title>French Word Match Game</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <script defer src="script.js"></script>
+  <!-- SheetJS library -->
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
-  <h1>French Word Match</h1>
+  <h1>French Word Match Game</h1>
 
-  <div id="fileInputContainer">
-    <label for="fileInput">Upload Spreadsheet:</label>
-    <input type="file" id="fileInput" accept=".xlsx,.xls,.ods,.csv,.xlsb,.fods" />
+  <!-- File upload section -->
+  <div id="fileInputBox">
+    <input type="file" id="fileInput" accept=".csv,.xlsx,.xls,.ods">
   </div>
 
+  <!-- Scoreboard with Restart button -->
   <div id="scoreboard">
     <span>Total Matches: <span id="totalMatches">0</span></span>
     <span>Completed: <span id="completedMatches">0</span></span>
@@ -22,11 +23,13 @@
     <button id="restartButton">Restart</button>
   </div>
 
-  <div id="gameArea">
+  <!-- Game container -->
+  <div class="container">
     <div class="column" id="frenchColumn"></div>
     <div class="column" id="englishColumn"></div>
   </div>
 
+  <!-- Abbreviations -->
   <div id="abbreviations">
     <h2>List of Abbreviations</h2>
     <div class="abbrev-columns">
@@ -51,5 +54,7 @@
       </ul>
     </div>
   </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
